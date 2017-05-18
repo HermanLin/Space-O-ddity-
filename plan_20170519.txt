@@ -1,0 +1,26 @@
+//Space O(ddity)
+//Herman Lin, Ricky Chen, Victor Teoh
+//Period 3
+//Plan
+
+
+***Main Goal***
+Our main goal for this project is to be able to recreate the classic arcade
+game Asteroids in Processing. We believe this will be able to test our knowledge
+on topics we have learned throughout the APCS course.
+
+***Crucial Jobs***
+
+
+***Core Components***
+
+*Prerequisite Components*
+
+
+***Tasks to be Delegated***
+
+
+***Tasks to be Collaborated***
+
+
+

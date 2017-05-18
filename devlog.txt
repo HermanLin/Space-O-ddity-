@@ -1,0 +1,29 @@
+//Space O(ddity)
+//Herman Lin, Ricky Chen, Victor Teoh
+//Period 3
+//Devlog
+
+
+//=====v===Things to be Resolved===v=====
+
+
+
+
+//=====^===========================^=====
+
+
+
+
+//======v===Things We Have Done===v======
+
+===v===Copypasta===v===
+mm/dd/yy
+name :: blah blah blah
+name :: blah blah blah
+name :: blah blah blah
+===^===============^===
+
+
+
+
+//======^=========================^======

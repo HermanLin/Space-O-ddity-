@@ -7,6 +7,7 @@
 //=====v===Things to be Resolved===v=====
 
 GameObject class seems unecessary/confusing because we're treating asteroids and the player differently
+Need to find a way to move the player
 -Herman
 
 

@@ -1,11 +1,6 @@
-class Player {
+class Player extends GameObject{
   //INSTANCE VARIABLES
-  PVector pos;
-  PVector vel;
-  PVector acc;
   float r = 10;
-  float angle;
-  PShape model;
   int shotCooldown;
   int score = 0;
   int lives = 3;
@@ -13,8 +8,15 @@ class Player {
   Player() {
     pos = new PVector(width/2, height/2);
     vel = new PVector(0, 0);
-    acc = new PVector(0, 0);
-    angle = 0.2;
+    model = createShape();
+    model.beginShape();
+    model.fill(255);
+    model.noStroke();
+    model.vertex(-r, r);
+    model.vertex(r, r);
+    model.vertex(0, -r);
+    model.endShape(CLOSE);
+    angle = PI/64;
   }
 
   boolean isDead() {
@@ -35,9 +37,10 @@ class Player {
   void render() {
     noFill();
     stroke(255);
-    rotate(angle);
     translate(pos.x, pos.y);
-    triangle(-r, r, r, r, 0, -r);
+    background(0);
+    shape(model);
+    model.rotate(angle);
   }
 
   class Shot {

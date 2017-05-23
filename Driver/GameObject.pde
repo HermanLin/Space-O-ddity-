@@ -1,16 +1,15 @@
 abstract class GameObject {
   //INSTANCE VARIABLES
-  PVector location;
-  PVector velocity;
+  PVector pos;
+  PVector vel;
   PShape model;
   float angle;
   boolean dead;
 
   //Constructor for a default object
   GameObject() {
-    location = new PVector (0, 0, 0);
-    velocity = new PVector (0, 0, 0);
-    model = createShape (0, 0, 0, 0);
+    pos = new PVector (0, 0, 0);
+    vel = new PVector (0, 0, 0);
     angle = 0;
   }
 }

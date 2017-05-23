@@ -7,6 +7,7 @@ void setup() {
   size(1000, 600);
   background(0);
   player = new Player();
+  frameRate(24);
 }
 
 void draw() {

@@ -5,7 +5,7 @@ abstract class GameObject {
   PShape model;
   float angle;
   boolean dead;
-  
+
   //Constructor for a default object
   GameObject() {
     location = new PVector (0, 0, 0);

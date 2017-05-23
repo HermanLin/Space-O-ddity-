@@ -1,0 +1,26 @@
+//Space O(ddity)
+//Herman Lin, Ricky Chen, Victor Teoh
+//Period 3
+//Plan
+//2017-05-22
+
+===Main Goal===
+- create a working prototype of the final game
+
+
+===Crucial Jobs===
+- creating a moveable player
+
+
+===Core Components===
+- moveable player
+
+===Prerequisite Components===
+
+
+===Tasks to be Delegated===
+
+
+===Tasks to be Collaborated===
+- Player
+- Driver

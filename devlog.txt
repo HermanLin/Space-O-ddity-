@@ -6,7 +6,8 @@
 
 //=====v===Things to be Resolved===v=====
 
-
+GameObject class seems unecessary/confusing because we're treating asteroids and the player differently
+-Herman
 
 
 //=====^===========================^=====
@@ -18,12 +19,18 @@
 
 ===v===Copypasta===v===
 mm/dd/yy
-name :: blah blah blah
-name :: blah blah blah
-name :: blah blah blah
+Herman :: blah blah blah
+Ricky :: blah blah blah
+Victor :: blah blah blah
 ===^===============^===
 
+mm/dd/yy
+Herman :: Worked on skeletons
+Ricky :: Looked up 3D models
+Victor :: Worked on skeletons
 
-
-
+05/22/17
+Herman :: Worked on Player
+Ricky :: blah blah blah
+Victor :: blah blah blah
 //======^=========================^======

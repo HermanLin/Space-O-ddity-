@@ -32,6 +32,16 @@ Victor :: Worked on skeletons
 
 05/22/17
 Herman :: Worked on Player
-Ricky :: blah blah blah
+Ricky :: Worked out algo for sorting BST
+Victor :: blah blah blah
+
+05/23/17
+Herman :: Worked on player movement
+Ricky :: Worked on player movement
+Victor :: Worked on player movement
+
+05/24/17
+Herman :: Finished player movement
+Ricky :: Finished player movement, implemented 3D player model
 Victor :: blah blah blah
 //======^=========================^======

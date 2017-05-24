@@ -12,18 +12,17 @@ void setup() {
 }
 
 void draw() {
-  if (upPressed){
-      player.vel = new PVector(10 * cos(player.angle), 10 * sin(player.angle), 0);
+  if (upPressed) {
+    player.vel = new PVector(10 * cos(player.angle), 10 * sin(player.angle), 0);
+  } else {
+    player.vel = new PVector(0, 0, 0);
   }
-  else{
-     player.vel = new PVector(0, 0, 0); 
+
+  if (leftPressed) {
+    player.rotate(-1 * PI / 16);
   }
-  
-  if (leftPressed){
-     player.rotate(-1 * PI / 16);  
-  }
-  if (rightPressed){
-    player.rotate(PI / 16);  
+  if (rightPressed) {
+    player.rotate(PI / 16);
   }
   player.move();
   player.render();

@@ -1,4 +1,4 @@
-class Player extends GameObject{
+class Player extends GameObject {
   //INSTANCE VARIABLES
   float r = 10;
   int shotCooldown;
@@ -13,7 +13,6 @@ class Player extends GameObject{
     model.scale(7);
     model.rotateY(PI / 2);
     model.rotateZ(PI / 2);
-
   }
 
   boolean isDead() {
@@ -25,6 +24,10 @@ class Player extends GameObject{
   }
 
   void move() {
+    if (pos.x < 0 || pos.x > 1200)
+      vel = new PVector(0, 0, 0);
+    if (pos.y < 0 || pos.y > 800)
+      vel = new PVector(0, 0, 0);
     pos = pos.add(vel);
   }
 

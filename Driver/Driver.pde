@@ -24,8 +24,8 @@ void draw() {
   if (rightPressed) {
     gm.playerInput(4);
   }
-  gm.player.move();
-  gm.player.render();
+  gm.move();
+  gm.render();
 }
 
 void keyPressed() {

@@ -1,31 +1,31 @@
-Player player;
 boolean upPressed = false;
 boolean leftPressed = false;
 boolean rightPressed = false;
+boolean zPressed = false;
+GameController gm;
 
 void setup() {
   size(1200, 800, P3D);
   background(0);
-  player = new Player();
-  frameRate(24);
   ortho();
+  gm = new GameController();
 }
 
 void draw() {
   if (upPressed) {
-    player.vel = new PVector(10 * cos(player.angle), 10 * sin(player.angle), 0);
+    gm.playerInput(1);
   } else {
-    player.vel = new PVector(0, 0, 0);
+   gm.playerInput(2);
   }
 
   if (leftPressed) {
-    player.rotate(-1 * PI / 16);
+    gm.playerInput(3);
   }
   if (rightPressed) {
-    player.rotate(PI / 16);
+    gm.playerInput(4);
   }
-  player.move();
-  player.render();
+  gm.player.move();
+  gm.player.render();
 }
 
 void keyPressed() {
@@ -36,6 +36,8 @@ void keyPressed() {
       leftPressed = true;
     } else if (keyCode == RIGHT) {
       rightPressed = true;
+    } else if (keyCode == Z) {
+      zPressed = true;
     }
   }
 }
@@ -48,6 +50,8 @@ void keyReleased() {
       leftPressed = false;
     } else if (keyCode == RIGHT) {
       rightPressed = false;
+    } else if (keyCode == Z) {
+      zPressed = false;
     }
   }
 }

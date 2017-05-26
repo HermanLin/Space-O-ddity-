@@ -11,8 +11,9 @@ class Player extends GameObject {
     angle = 0;
     model = loadShape("ship.obj");
     model.scale(7);
-    model.rotateY(PI / 2);
-    model.rotateZ(PI / 2);
+    model.rotateX(3 * PI / 2);
+    model.rotateY(PI);
+    model.rotateZ(3 * PI / 2);
   }
 
   boolean isDead() {
@@ -22,11 +23,7 @@ class Player extends GameObject {
   boolean contact() {
     return true;
   }
-  
-  Shot shoot() {
-    return new Shot(); 
-  }
-  
+
   void move() {
     if (pos.x < 0 || pos.x > 1200)
       vel = new PVector(0, 0, 0);
@@ -51,20 +48,14 @@ class Player extends GameObject {
 
   class Shot {
     //VFX look;
-    PVector shotPos;
-    PVector shotVel;
-    
-    Shot(){
-      shotPos = new PVector(pos.x + 20 * cos(angle), pos.y + 40 * sin(angle), 0);
-      shotVel = new PVector(30 * cos(angle), 30 * sin(angle), 0);
-    }
+    PVector shotLoc = new PVector(pos.x + 20 * cos(angle), pos.y + 40 * sin(angle), 0);
+    PVector shotVelocity = new PVector(30 * cos(angle), 30 * sin(angle), 0);
 
     boolean contact() {
       return true;
     }
 
     void move() {
-      shotPos = shotPos.add(shotVel);
     }
   }
 }

@@ -45,7 +45,6 @@ class Player extends GameObject {
     noFill();
     stroke(255);
     translate(pos.x, pos.y);
-    background(0);
     shape(model);
   }
 

@@ -13,7 +13,7 @@ Need to find a way to move the player
 
 //=====^===========================^=====
 
-
+//=====v===Problems Solved===v=====
 
 
 //======v===Things We Have Done===v======
@@ -43,5 +43,15 @@ Victor :: Worked on player movement
 05/24/17
 Herman :: Finished player movement
 Ricky :: Finished player movement, implemented 3D player model
-Victor :: blah blah blah
+Victor :: mia
+
+05/25/17
+Herman :: Setup GameController
+Ricky :: Setup GameController, made astroid models
+Victor :: mia
+
+
+Herman :: Worked on Asteroids
+Ricky :: Worked on Asteroids
+Victor :: mia
 //======^=========================^======

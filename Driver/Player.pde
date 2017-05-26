@@ -1,6 +1,5 @@
 class Player extends GameObject {
   //INSTANCE VARIABLES
-  float r = 10;
   int shotCooldown;
   int score = 0;
   int lives = 3;
@@ -11,9 +10,8 @@ class Player extends GameObject {
     angle = 0;
     model = loadShape("ship.obj");
     model.scale(7);
-    model.rotateX(3 * PI / 2);
-    model.rotateY(PI);
-    model.rotateZ(3 * PI / 2);
+    model.rotateY(PI / 2);
+    model.rotateZ(PI / 2);
   }
 
   boolean isDead() {
@@ -23,12 +21,17 @@ class Player extends GameObject {
   boolean contact() {
     return true;
   }
-
+  
   void move() {
-    if (pos.x < 0 || pos.x > 1200)
-      vel = new PVector(0, 0, 0);
-    if (pos.y < 0 || pos.y > 800)
-      vel = new PVector(0, 0, 0);
+    
+    if (pos.x < 10)
+      pos.x = width - 10;
+    if (pos.x > width - 10)
+      pos.x = 10;
+    if (pos.y < 10)
+      pos.y = height - 10;
+    if (pos.y > height - 10)
+      pos.y = 10;
     pos = pos.add(vel);
   }
 

@@ -2,7 +2,7 @@ Player player;
 boolean upPressed = false;
 boolean leftPressed = false;
 boolean rightPressed = false;
-Asteroid ass;
+Asteroid ast;
 
 void setup() {
   size(1200, 800, P3D);
@@ -10,7 +10,7 @@ void setup() {
   player = new Player();
   frameRate(24);
   ortho();
-  ass = new Asteroid(new PVector(random(0, width), random(0, height), 0),
+  ast = new Asteroid(new PVector(random(0, width), random(0, height), 0),
                        new PVector(random(0, 10), random(0, 10), 0));
   
 }
@@ -31,8 +31,8 @@ void draw() {
   background(0);
   player.move();
   player.render();
-  ass.move();
-  ass.render();
+  //st.move();
+  ast.render();
   
 }
 

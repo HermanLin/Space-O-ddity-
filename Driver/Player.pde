@@ -10,8 +10,10 @@ class Player extends GameObject {
     angle = 0;
     model = loadShape("ship.obj");
     model.scale(7);
+    
+    model.rotateX(PI / 2);
     model.rotateY(PI / 2);
-    model.rotateZ(PI / 2);
+    //model.rotateZ(PI / 2);
   }
 
   boolean isDead() {

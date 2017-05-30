@@ -40,6 +40,7 @@ class Player extends GameObject {
   void rotate (float theta) {
     angle += theta;
     model.rotateZ(theta);
+    //model.rotateX(theta);
   }
 
   void render() {
@@ -48,6 +49,7 @@ class Player extends GameObject {
     stroke(255);
     translate(pos.x, pos.y);
     shape(model);
+    translate(-pos.x, -pos.y);
   }
 
   class Shot {

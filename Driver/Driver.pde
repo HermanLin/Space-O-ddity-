@@ -1,8 +1,11 @@
 Player player;
+Asteroid ast;
 boolean upPressed = false;
 boolean leftPressed = false;
 boolean rightPressed = false;
-Asteroid ast;
+LList shots;
+BST colliders;
+GameObject[] objs;
 
 void setup() {
   size(1200, 800, P3D);
@@ -11,15 +14,18 @@ void setup() {
   frameRate(24);
   ortho();
   ast = new Asteroid(new PVector(random(0, width), random(0, height), 0),
-                       new PVector(random(0, 10), random(0, 10), 0));
-  
+                       new PVector(random(0, 0), random(0, 0), 0));  
+  colliders = new BST();
+  //colliders.insert(as
 }
 
 void draw() {
   if (upPressed) {
     player.vel = new PVector(10 * cos(player.angle), 10 * sin(player.angle), 0);
+    player.move();
   } else {
     player.vel = new PVector(0, 0, 0);
+    player.move();
   }
 
   if (leftPressed) {
@@ -29,9 +35,10 @@ void draw() {
     player.rotate(PI / 16);
   }
   background(0);
-  player.move();
+  //player.move();
   player.render();
-  //st.move();
+  ast.move();
+  ast.spin();
   ast.render();
   
 }

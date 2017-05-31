@@ -16,6 +16,7 @@ void setup() {
   ast = new Asteroid(new PVector(random(0, width), random(0, height), 0), 
     new PVector(random(0, 0), random(0, 0), 0));  
   colliders = new BST();
+  shots = new LList();
   //colliders.insert(as
 }
 

@@ -62,6 +62,7 @@ class Player extends GameObject {
     }
 
     void move() {
+      shotLoc = shotLoc.add(shotVelocity);
     }
   }
 }

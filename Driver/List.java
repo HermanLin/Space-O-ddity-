@@ -7,11 +7,11 @@
 
 public interface List { 
 
-    public boolean add( String x ); 
+    public boolean add( Driver.Player.Shot x ); 
 
-    public String get( int i ); 
+    public Driver.Player.Shot get( int i ); 
 
-    public String set( int i, String x ); 
+    public Driver.Player.Shot set( int i, Driver.Player.Shot x ); 
 
     public int size(); 
 }

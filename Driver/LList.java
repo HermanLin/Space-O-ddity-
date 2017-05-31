@@ -3,7 +3,6 @@
  * skeleton
  * Implements a linked list of LLNodes.
  *****************************************************/
-
 public class LList implements List 
 { //your homemade List.java must be in same dir
 
@@ -21,7 +20,7 @@ public class LList implements List
 
     //--------------v  List interface methods  v--------------
 
-    public boolean add( String newVal )
+    public boolean add( Driver.Player.Shot newVal )
     { 
 	LLNode tmp = new LLNode( newVal, _head );
 	_head = tmp;
@@ -30,12 +29,12 @@ public class LList implements List
     } 
 
 
-    public String get( int index )
+    public Driver.Player.Shot get( int index )
     { 
 	if ( index < 0 || index >= size() )
 	    throw new IndexOutOfBoundsException();
 
-	String retVal;
+	Driver.Player.Shot retVal;
 	LLNode tmp = _head; //create alias to head
 
 	//walk to desired node
@@ -48,7 +47,7 @@ public class LList implements List
     } 
 
 
-    public String set( int index, String newVal )
+    public Driver.Player.Shot set( int index, Driver.Player.Shot newVal )
     { 
 	if ( index < 0 || index >= size() )
 	    throw new IndexOutOfBoundsException();
@@ -60,7 +59,7 @@ public class LList implements List
 	    tmp = tmp.getNext();
 
 	//store target node's cargo
-	String oldVal = tmp.getCargo();
+	Driver.Player.Shot oldVal = tmp.getCargo();
 	
 	//modify target node's cargo
 	tmp.setCargo( newVal );
@@ -90,38 +89,6 @@ public class LList implements List
     //main method for testing
     public static void main( String[] args ) 
     {
-	LList james = new LList();
-
-	System.out.println( james );
-	System.out.println( "size: " + james.size() );
-
-	james.add("beat");
-	System.out.println( james );
-	System.out.println( "size: " + james.size() );
-
-	james.add("a");
-	System.out.println( james );
-	System.out.println( "size: " + james.size() );
-
-	james.add("need");
-	System.out.println( james );
-	System.out.println( "size: " + james.size() );
-
-	james.add("I");
-	System.out.println( james );
-	System.out.println( "size: " + james.size() );
-
-	System.out.println( "2nd item is: " + james.get(1) );
-
-	james.set( 1, "got" );
-	System.out.println( "...and now 2nd item is: " + james.set(1,"got") );
-
-	System.out.println( james );
-	/*~~~~s~l~i~d~e~~~m~e~~~d~o~w~n~~~~~~~~~~~~~~~~~~~~ (C-k, C-k, C-y) 
-	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     }
 
 }//end class LList
-
-
-

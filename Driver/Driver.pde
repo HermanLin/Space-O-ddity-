@@ -1,8 +1,10 @@
 Player player;
 Asteroid ast;
+Player.Shot sht;
 boolean upPressed = false;
 boolean leftPressed = false;
 boolean rightPressed = false;
+boolean zedPressed = false;
 LList shots;
 BST colliders;
 GameObject[] objs;
@@ -17,6 +19,7 @@ void setup() {
     new PVector(random(0, 0), random(0, 0), 0));  
   colliders = new BST();
   shots = new LList();
+  sht = null;
   //colliders.insert(as
 }
 
@@ -35,9 +38,15 @@ void draw() {
   if (rightPressed) {
     player.rotate(PI / 16);
   }
+  if (zedPressed) {
+    sht = player.shoot();
+  }
   background(0);
-  //player.move();
   player.render();
+  if (sht != null) {
+    sht.move();
+    sht.render();
+  }
   ast.move();
   ast.spin();
   ast.render();
@@ -52,6 +61,8 @@ void keyPressed() {
     } else if (keyCode == RIGHT) {
       rightPressed = true;
     }
+  } else if (key == 'z' || key == 'Z') {
+    zedPressed = true;
   }
 }
 
@@ -64,5 +75,7 @@ void keyReleased() {
     } else if (keyCode == RIGHT) {
       rightPressed = false;
     }
+  } else if (key == 'z' || key == 'Z') {
+    zedPressed = false;
   }
 }

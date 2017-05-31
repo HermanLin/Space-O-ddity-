@@ -24,8 +24,11 @@ class Player extends GameObject {
     return true;
   }
   
+  Shot shoot() {
+    return new Shot();  
+  }
+  
   void move() {
-    
     if (pos.x < 10)
       pos.x = width - 10;
     if (pos.x > width - 10)
@@ -42,7 +45,7 @@ class Player extends GameObject {
     model.rotateZ(theta);
     //model.rotateX(theta);
   }
-
+  
   void render() {
     lights();
     noFill();
@@ -59,9 +62,9 @@ class Player extends GameObject {
     PImage vfx;
     
     Shot(){
-      shotLoc = new PVector(pos.x + 20 * cos(angle), pos.y + 40 * sin(angle), 0);
+      shotLoc = new PVector(int(pos.x + 20 * cos(angle)), int(pos.y + 40 * sin(angle)), 0);
        shotVelocity = new PVector(30 * cos(angle), 30 * sin(angle), 0);
-       vfx = loadImage("shot.tiff");
+       vfx = loadImage("shot.png");
     }
 
     boolean contact() {
@@ -70,6 +73,10 @@ class Player extends GameObject {
 
     void move() {
       shotLoc = shotLoc.add(shotVelocity);
+    }
+    
+    void render(){
+      image(vfx, shotLoc.x, shotLoc.y);
     }
   }
 }

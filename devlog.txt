@@ -60,6 +60,11 @@ Victor :: mia
 
 05/30/17
 Herman :: Worked on Asteroids
-Ricky :: Worked on Asteroids
+Ricky :: Worked on Asteroids, typecasted .java files
+Victor :: mia
+
+05/31/17
+Herman :: Worked on Shot
+Ricky :: Worked on Shot
 Victor :: mia
 //======^=========================^======

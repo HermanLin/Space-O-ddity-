@@ -8,12 +8,15 @@
 
 GameObject class seems unecessary/confusing because we're treating asteroids and the player differently
 Need to find a way to move the player
--Herman
-
 
 //=====^===========================^=====
 
 //=====v===Problems Solved===v=====
+
+GameObject kept for simplicity
+Player being moved via keyPressed
+
+//=====^=====================^=====
 
 
 //======v===Things We Have Done===v======
@@ -33,7 +36,7 @@ Victor :: Worked on skeletons
 05/22/17
 Herman :: Worked on Player
 Ricky :: Worked out algo for sorting BST
-Victor :: blah blah blah
+Victor :: mia
 
 05/23/17
 Herman :: Worked on player movement
@@ -50,7 +53,12 @@ Herman :: Setup GameController
 Ricky :: Setup GameController, made astroid models
 Victor :: mia
 
+05/26/17
+Herman :: Worked on Asteroids
+Ricky :: Worked on Asteroids
+Victor :: mia
 
+05/30/17
 Herman :: Worked on Asteroids
 Ricky :: Worked on Asteroids
 Victor :: mia

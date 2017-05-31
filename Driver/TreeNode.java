@@ -6,14 +6,14 @@
 /*****************************************************
  * class TreeNode
  * Implements a node for use in a binary tree.
- * Only holds int cargo.
+ * Only holds Driver.Asteroid.Collider cargo.
  *****************************************************/
 
 public class TreeNode 
 {
     //instance variables / attributes of a TreeNode:
-    int _cargo;     //this node's data
-    TreeNode _lt, _rt; //pointers to left, right subtrees
+    Driver.Asteroid.Collider _cargo;     //this node's data
+    TreeNode _lt, _rt; //poDriver.Driver.Asteroid.Colliderers to left, right subtrees
 
 
     /*****************************************************
@@ -21,7 +21,7 @@ public class TreeNode
      * Construct a tree node with specified value, 
      * with null left and right subtrees.
      *****************************************************/
-    TreeNode( int initValue )
+    TreeNode(Driver.Asteroid.Collider initValue )
     {
 	_cargo = initValue;
     }
@@ -32,7 +32,7 @@ public class TreeNode
      * Construct a tree node with specified
      * value, left, and right subtrees.
      *****************************************************/
-    TreeNode( int initValue, TreeNode initLeft, TreeNode initRight ) 
+    TreeNode(Driver.Asteroid.Collider initValue, TreeNode initLeft, TreeNode initRight ) 
     {
 	this(initValue);
 	_lt = initLeft;
@@ -61,7 +61,7 @@ public class TreeNode
     /*****************************************************
      * Returns the value stored in this tree node.
      *****************************************************/
-    int getValue() 
+    Driver.Asteroid.Collider getValue() 
     {
 	return _cargo;
     }
@@ -88,7 +88,7 @@ public class TreeNode
     /*****************************************************
      * Sets the value of this tree node.
      *****************************************************/
-    void setValue( int theNewValue ) 
+    void setValue(Driver.Asteroid.Collider theNewValue ) 
     {
 	_cargo = theNewValue;
     }

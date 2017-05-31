@@ -13,8 +13,8 @@ void setup() {
   player = new Player();
   frameRate(24);
   ortho();
-  ast = new Asteroid(new PVector(random(0, width), random(0, height), 0),
-                       new PVector(random(0, 0), random(0, 0), 0));  
+  ast = new Asteroid(new PVector(random(0, width), random(0, height), 0), 
+    new PVector(random(0, 0), random(0, 0), 0));  
   colliders = new BST();
   //colliders.insert(as
 }
@@ -40,7 +40,6 @@ void draw() {
   ast.move();
   ast.spin();
   ast.render();
-  
 }
 
 void keyPressed() {

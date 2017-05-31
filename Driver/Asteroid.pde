@@ -1,11 +1,11 @@
 class Asteroid extends GameObject {
-  
-  Asteroid(PVector position, PVector velocity){
-     pos = position;
-     vel = velocity;
-     angle = 0;
-     model = loadShape("asteroid2.obj");
-     model.scale(10);
+
+  Asteroid(PVector position, PVector velocity) {
+    pos = position;
+    vel = velocity;
+    angle = 0;
+    model = loadShape("asteroid2.obj");
+    model.scale(10);
   }
   void move() {
     pos = pos.add(vel);
@@ -13,9 +13,8 @@ class Asteroid extends GameObject {
   void spin() {
     model.rotateX(PI / 64);
     model.rotateY(PI / 64);
-   
   }
-  
+
   void render() {
     lights();
     translate(pos.x, pos.y);
@@ -33,8 +32,8 @@ class Asteroid extends GameObject {
     int distance;
 
     Collider() {
-      focus1 = (pos.x + 20), pos.y);
-      focus2 = (pos.x + 20), pos.y);
+      focus1 = new PVector((pos.x + 20), pos.y);
+      focus2 = new PVector((pos.x + 20), pos.y);
       distance = 40;
     }
 

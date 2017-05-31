@@ -1,0 +1,30 @@
+//Space O(ddity)
+//Herman Lin, Ricky Chen, Victor Teoh
+//Period 3
+//Plan
+//2017-05-30
+
+===Main Goal===
+- work on asteroid movement and ship shooting
+
+
+===Crucial Jobs===
+- implement the data structures needed for the collision objects
+
+
+===Core Components===
+- Asteroid
+- Player
+- data structures
+
+===Prerequisite Components===
+- LList
+- BST
+
+===Tasks to be Delegated===
+
+
+===Tasks to be Collaborated===
+- asteroid data structure
+- collision implementation
+- player shooting

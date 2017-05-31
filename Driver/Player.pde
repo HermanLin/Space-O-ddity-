@@ -54,8 +54,15 @@ class Player extends GameObject {
 
   class Shot {
     //VFX look;
-    PVector shotLoc = new PVector(pos.x + 20 * cos(angle), pos.y + 40 * sin(angle), 0);
-    PVector shotVelocity = new PVector(30 * cos(angle), 30 * sin(angle), 0);
+    PVector shotLoc;
+    PVector shotVelocity;
+    PImage vfx;
+    
+    Shot(){
+      shotLoc = new PVector(pos.x + 20 * cos(angle), pos.y + 40 * sin(angle), 0);
+       shotVelocity = new PVector(30 * cos(angle), 30 * sin(angle), 0);
+       vfx = loadImage("shot.tiff");
+    }
 
     boolean contact() {
       return true;

@@ -59,12 +59,16 @@ class Player extends GameObject {
     //VFX look;
     PVector shotLoc;
     PVector shotVelocity;
+    float shotAngle;
     PImage vfx;
     
     Shot(){
       shotLoc = new PVector(int(pos.x + 20 * cos(angle)), int(pos.y + 40 * sin(angle)), 0);
        shotVelocity = new PVector(30 * cos(angle), 30 * sin(angle), 0);
+       shotAngle = angle;
        vfx = loadImage("shot.png");
+       vfx.resize(60, 40);
+       
     }
 
     boolean contact() {
@@ -76,7 +80,11 @@ class Player extends GameObject {
     }
     
     void render(){
-      image(vfx, shotLoc.x, shotLoc.y);
+      pushMatrix();
+      translate(shotLoc.x, shotLoc.y);
+      rotateZ(shotAngle + PI / 2);
+      image(vfx, 0,0);
+      popMatrix();
     }
   }
 }

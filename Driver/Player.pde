@@ -8,12 +8,14 @@ class Player extends GameObject {
     pos = new PVector(width/2, height/2);
     vel = new PVector(0, 0);
     angle = 0;
+    //shapeMode(CENTER);
     model = loadShape("ship.obj");
     model.scale(7);
     
     model.rotateX(PI / 2);
     model.rotateY(PI / 2);
     //model.rotateZ(PI / 2);
+    //model.translate(-30, -30);
   }
 
   boolean isDead() {
@@ -42,17 +44,19 @@ class Player extends GameObject {
 
   void rotate (float theta) {
     angle += theta;
-    model.rotateZ(theta);
+    //model.rotateZ(theta);
     //model.rotateX(theta);
   }
   
   void render() {
+    pushMatrix();
     lights();
     noFill();
     stroke(255);
     translate(pos.x, pos.y);
+    rotateZ(angle);
     shape(model);
-    translate(-pos.x, -pos.y);
+    popMatrix();
   }
 
   class Shot {

@@ -3,6 +3,7 @@ class Player extends GameObject {
   int shotCooldown;
   int score = 0;
   int lives = 3;
+  float yAngle = 0;
 
   Player() {
     pos = new PVector(width/2, height/2);
@@ -49,6 +50,20 @@ class Player extends GameObject {
   }
   
   void render() {
+    /* From web:
+     (1) Translate space so that the rotation axis passes through the origin.
+
+(2) Rotate space about the z axis so that the rotation axis lies in the xz plane.
+
+(3) Rotate space about the y axis so that the rotation axis lies along the z axis.
+
+(4) Perform the desired rotation by θ about the z axis.
+
+(5) Apply the inverse of step (3).
+
+(6) Apply the inverse of step (2).
+
+(7) Apply the inverse of step (1).  */
     pushMatrix();
     lights();
     noFill();
@@ -84,6 +99,7 @@ class Player extends GameObject {
     }
     
     void render(){
+      imageMode(CENTER);
       pushMatrix();
       translate(shotLoc.x, shotLoc.y);
       rotateZ(shotAngle + PI / 2);

@@ -8,6 +8,7 @@
 
 GameObject class seems unecessary/confusing because we're treating asteroids and the player differently
 Need to find a way to move the player
+Need to fix model orientation (not centered correctly, may interfere with collisions)
 
 //=====^===========================^=====
 
@@ -66,5 +67,10 @@ Victor :: mia
 05/31/17
 Herman :: Worked on Shot
 Ricky :: Worked on Shot
+Victor :: mia
+
+06/01/17
+Herman :: Worked on player model and Shot, updated flowchart
+Ricky :: Worked on player model and Shot
 Victor :: mia
 //======^=========================^======

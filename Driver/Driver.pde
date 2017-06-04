@@ -1,11 +1,12 @@
+import java.util.*;
+
 Player player;
 Asteroid ast;
-Player.Shot sht;
 boolean upPressed = false;
 boolean leftPressed = false;
 boolean rightPressed = false;
 boolean zedPressed = false;
-LList shots;
+LinkedList<Player.Shot> shots;
 BST colliders;
 GameObject[] objs;
 
@@ -18,8 +19,7 @@ void setup() {
   ast = new Asteroid(new PVector(random(0, width), random(0, height), 0), 
     new PVector(random(0, 0), random(0, 0), 0));  
   colliders = new BST();
-  shots = new LList();
-  sht = null;
+  shots = new LinkedList<Player.Shot>();
   //colliders.insert(as
 }
 
@@ -39,13 +39,20 @@ void draw() {
     player.rotate(PI / 16);
   }
   if (zedPressed) {
-    sht = player.shoot();
+    shots.addLast(player.shoot());
   }
   background(0);
   player.render();
-  if (sht != null) {
-    sht.move();
-    sht.render();
+  if (shots.size() > 0) {
+    Iterator it = shots.iterator();
+    while(it.hasNext()){
+       Player.Shot sht = (Player.Shot) it.next();
+       if(sht.move()){
+         it.remove();
+       }
+       else
+         sht.render();
+    }
   }
   ast.move();
   ast.spin();

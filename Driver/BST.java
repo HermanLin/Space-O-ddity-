@@ -85,7 +85,7 @@ public class BST
       return null; //to get past compiler
   }
 
-  public TreeNode remove( Asteroid.Collider remVal )
+  public TreeNode remove( Driver.Asteroid.Collider remVal )
   {
     TreeNode leader = _root;  
     TreeNode follower = null; //piggybacker
@@ -93,9 +93,9 @@ public class BST
     //first, walk leader down to target node w/ follower trailing...
 
     while (leader != null
-      && leader.getValue().pos.x != remVal.pos.x ) {
+      && leader.getValue().focus1.x != remVal.focus1.x ) {
       follower = leader;
-      if ( leader.getValue().pos.x < remVal.pos.x )
+      if ( leader.getValue().focus1.x < remVal.focus1.x )
         leader = leader.getRight();
       else
         leader = leader.getLeft();
@@ -105,7 +105,7 @@ public class BST
     if ( isLeaf(leader) ) {
       if (_root == leader)
         _root = null;
-      else if (follower.getLeft().getValue().pos.x == remVal.pos.x)
+      else if (follower.getLeft().getValue().focus1.x == remVal.focus1.x)
         follower.setLeft(null);
       else
         follower.setRight(null);

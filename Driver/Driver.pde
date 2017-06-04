@@ -23,7 +23,7 @@ void setup() {
     new PVector(random(0, 0), random(0, 0), 0)));  
   colliders = new BST();
   shots = new LinkedList<Player.Shot>();
-  colliders.insert(ast.getCollider());
+  colliders.insert(asteroids.get(0).getCollider());
 }
 
 void draw() {
@@ -48,44 +48,48 @@ void draw() {
   background(0);
   player.render();
 
-  if (ast != null) {
-    moveAsteroids();
-    renderAsteroids();
-    //col.render();
-  }
+  moveAsteroids();
+  renderAsteroids();
+  //col.render();
 
   moveShots();
 }
 
 void moveAsteroids() {
-  ast.move();
+  for (Asteroid ast : asteroids)
+    ast.move();
 }
 
 void moveShots() {
   if (shots.size() > 0) {
     Iterator it = shots.iterator();
     while (it.hasNext()) {
+      boolean removed = false;
       Player.Shot sht = (Player.Shot) it.next();
-      if (sht.move()) 
+      if (sht.move()) {
         it.remove();
-      else {
-        for (int i = asteroids.size();  i  < 0; i--) {
+        removed = true;
+      } else if (! removed) {
+        for (int i = asteroids.size() - 1; i  >= 0; i--) {
           Asteroid ast = asteroids.get(i);
-          if (ast.getCollider().intersects(sht.shotLoc)){
+          if (ast.getCollider().intersects(sht.shotLoc)) {
             it.remove();
-            asteroids.remove(ast.getCollider());
+            colliders.remove(ast.getCollider());
             asteroids.remove(i);
+            removed = true;
           }
         }
-      } else
+      }if (! removed)
         sht.render();
     }
   }
 }
 
 void renderAsteroids() {
-  ast.spin();
-  ast.render();
+  for (Asteroid ast : asteroids) {
+    ast.spin();
+    ast.render();
+  }
 }
 
 void keyPressed() {

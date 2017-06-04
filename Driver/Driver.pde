@@ -40,6 +40,7 @@ void draw() {
   }
   if (zedPressed) {
     shots.addLast(player.shoot());
+    zedPressed = false;
   }
   background(0);
   player.render();
@@ -68,9 +69,10 @@ void keyPressed() {
     } else if (keyCode == RIGHT) {
       rightPressed = true;
     }
-  } else if (key == 'z' || key == 'Z') {
-    zedPressed = true;
-  }
+  } 
+  //else if (key == 'z' || key == 'Z') {
+    //zedPressed = true;
+  //}
 }
 
 void keyReleased() {
@@ -83,6 +85,6 @@ void keyReleased() {
       rightPressed = false;
     }
   } else if (key == 'z' || key == 'Z') {
-    zedPressed = false;
+    zedPressed = true;
   }
 }

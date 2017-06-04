@@ -73,4 +73,9 @@ Victor :: mia
 Herman :: Worked on player model and Shot, updated flowchart
 Ricky :: Worked on player model and Shot
 Victor :: mia
+
+06/03/17
+Herman :: Edited Player shooting
+Ricky :: Added Shot data set
+Victor :: mia
 //======^=========================^======

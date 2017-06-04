@@ -85,6 +85,94 @@ public class BST
       return null; //to get past compiler
   }
 
+  public TreeNode remove( Driver.Asteroid.Collider remVal )
+  {
+    TreeNode leader = _root;  
+    TreeNode follower = null; //piggybacker
+
+    //first, walk leader down to target node w/ follower trailing...
+
+    while (leader != null
+      && leader.getValue().focus1.x != remVal.focus1.x ) {
+      follower = leader;
+      if ( leader.getValue().focus1.x < remVal.focus1.x )
+        leader = leader.getRight();
+      else
+        leader = leader.getLeft();
+    }
+    //CASE 1: removal node is a leaf
+    //action: snip it
+    if ( isLeaf(leader) ) {
+      if (_root == leader)
+        _root = null;
+      else if (follower.getLeft().getValue().focus1.x == remVal.focus1.x)
+        follower.setLeft(null);
+      else
+        follower.setRight(null);
+    }
+
+    //CASE 2: removal node has 1 subtree
+    //action: replace node with only child
+    else if ( leader.getRight()==null ) { //rem node's child is on left
+
+      //subcase: removal node is root
+      if (_root == leader)
+        _root = _root.getLeft();
+
+      //subcase: removal node is a left child
+      else if (follower.getLeft() == leader)
+        follower.setLeft(leader.getLeft());
+
+      //subcase: removal node is a right child
+      else
+        follower.setRight(leader.getLeft());
+    } else if ( leader.getLeft()==null ) { //rem node's child is on right
+
+      //subcase: removal node is root
+      if (_root == leader)
+        _root = _root.getRight();
+
+      //subcase: removal node is a left child
+      else if (follower.getLeft() == leader)
+        follower.setLeft(leader.getRight());
+
+      //subcase: removal node is a right child
+      else
+        follower.setRight(leader.getRight());
+    }
+
+    //CASE 3: removal node has 2 subtrees
+    //action: overwrite removal node value with max value in left subtree
+    //        (deepest node with no right child), then remove that node, 
+    //        promoting its left child if exists
+    else {
+      TreeNode maxLST = leader.getLeft();
+      while ( maxLST.getRight() != null ) {
+        maxLST = maxLST.getRight();
+      }
+
+      //create replacement node for removal node
+      TreeNode tmp = new TreeNode( maxLST.getValue() );
+      tmp.setLeft( leader.getLeft() );
+      tmp.setRight( leader.getRight() );
+
+      remove( maxLST.getValue() );
+
+      //subcase: removal node is root
+      if (_root == leader)
+        _root = tmp;
+
+      //subcase: removal node is a left child
+      else if (follower.getLeft() == leader)
+        follower.setLeft(tmp);
+
+      //subcase: removal node is a right child
+      else
+        follower.setRight(tmp);
+    }
+    return leader;
+  }//end remove()
+
 
   /*****************************************************
    * Collider height()

@@ -5,7 +5,7 @@ class Asteroid extends GameObject {
     vel = velocity;
     angle = 0;
     model = loadShape("asteroid2.obj");
-    model.scale(10);
+    model.scale(8);
   }
   void move() {
     pos = pos.add(vel);
@@ -16,9 +16,11 @@ class Asteroid extends GameObject {
   }
 
   void render() {
+    pushMatrix();
     lights();
     translate(pos.x, pos.y);
     shape(model);
+    popMatrix();
   }
   void offScreenDestroy() {
   }
@@ -32,13 +34,23 @@ class Asteroid extends GameObject {
     int distance;
 
     Collider() {
-      focus1 = new PVector((pos.x + 20), pos.y);
-      focus2 = new PVector((pos.x + 20), pos.y);
-      distance = 40;
+      focus1 = new PVector((pos.x - 25), pos.y);
+      focus2 = new PVector((pos.x + 25), pos.y);
+      distance = 100;
     }
 
-    float distanceFrom() {
-      return 0.0;
+    boolean intersects(PVector other) {
+      if (dist(other.x, other.y, focus1.x, focus1.y)
+        + dist(other.x, other.y, focus2.x, focus2.y)
+        <= distance)
+        return true;
+      else
+        return false;
+    }
+
+    //for dev purposes
+    void render() {
+      ellipse(pos.x, pos.y, 100, 86);
     }
   }
 }

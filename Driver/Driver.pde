@@ -9,6 +9,8 @@ boolean zedPressed = false;
 LinkedList<Player.Shot> shots;
 BST colliders;
 GameObject[] objs;
+Asteroid.Collider col;
+ArrayList<Asteroid> asteroids;
 
 void setup() {
   size(1200, 800, P3D);
@@ -16,11 +18,12 @@ void setup() {
   player = new Player();
   frameRate(24);
   ortho();
-  ast = new Asteroid(new PVector(random(0, width), random(0, height), 0), 
-    new PVector(random(0, 0), random(0, 0), 0));  
+  asteroids = new ArrayList<Asteroid>();
+  asteroids.add(new Asteroid(new PVector(random(0, width), random(0, height), 0), 
+    new PVector(random(0, 0), random(0, 0), 0)));  
   colliders = new BST();
   shots = new LinkedList<Player.Shot>();
-  //colliders.insert(as
+  colliders.insert(ast.getCollider());
 }
 
 void draw() {
@@ -41,20 +44,46 @@ void draw() {
   if (zedPressed) {
     shots.addLast(player.shoot());
   }
+
   background(0);
   player.render();
+
+  if (ast != null) {
+    moveAsteroids();
+    renderAsteroids();
+    //col.render();
+  }
+
+  moveShots();
+}
+
+void moveAsteroids() {
+  ast.move();
+}
+
+void moveShots() {
   if (shots.size() > 0) {
     Iterator it = shots.iterator();
-    while(it.hasNext()){
-       Player.Shot sht = (Player.Shot) it.next();
-       if(sht.move()){
-         it.remove();
-       }
-       else
-         sht.render();
+    while (it.hasNext()) {
+      Player.Shot sht = (Player.Shot) it.next();
+      if (sht.move()) 
+        it.remove();
+      else {
+        for (int i = asteroids.size();  i  < 0; i--) {
+          Asteroid ast = asteroids.get(i);
+          if (ast.getCollider().intersects(sht.shotLoc)){
+            it.remove();
+            asteroids.remove(ast.getCollider());
+            asteroids.remove(i);
+          }
+        }
+      } else
+        sht.render();
     }
   }
-  ast.move();
+}
+
+void renderAsteroids() {
   ast.spin();
   ast.render();
 }

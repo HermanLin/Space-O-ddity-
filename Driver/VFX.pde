@@ -4,15 +4,10 @@ class VFX {
   int frame;
   PVector pos;
   
-  VFX(String imagePrefix, int count, PVector Pos) {
-    imageCount = count;
-    images = new PImage[imageCount];
-
-    for (int i = 0; i < imageCount; i++) {
-      String filename = "animations/" + imagePrefix + i + ".png";
-      images[i] = loadImage(filename);
-    }
-    
+  VFX(PImage[] ray, PVector Pos) {
+    imageCount = ray.length;
+    images = ray;
+    frame = 0;
     pos = Pos;
   }
 

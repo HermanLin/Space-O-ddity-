@@ -1,17 +1,26 @@
 import java.util.*;
 
+//player reference
 Player player;
-Asteroid ast;
+
+//input references
 boolean upPressed = false;
 boolean leftPressed = false;
 boolean rightPressed = false;
 boolean zedPressed = false;
+
+//data structure references
 LinkedList<Player.Shot> shots;
 BST colliders;
 GameObject[] objs;
 Asteroid.Collider col;
 ArrayList<Asteroid> asteroids;
 ArrayList<VFX> vfxs;
+PriorityQueue<Asteroid> toSpawn;
+
+//animation references
+PImage[] explosion;
+PImage[] playDeath;
 
 void setup() {
   size(1200, 800, P3D);
@@ -26,6 +35,9 @@ void setup() {
   shots = new LinkedList<Player.Shot>();
   colliders.insert(asteroids.get(0).getCollider());
   vfxs = new ArrayList<VFX>();
+  
+  explosion = preLoad("exp", 9);
+  playDeath = preLoad("play", 11);
 }
 
 void draw() {
@@ -77,7 +89,7 @@ void moveShots() {
           Asteroid ast = asteroids.get(i);
           if (ast.getCollider().intersects(sht.shotLoc)) {
             it.remove();
-            vfxs.add(new VFX("exp", 9, ast.pos));
+            vfxs.add(new VFX(explosion, ast.pos));
             colliders.remove(ast.getCollider());
             asteroids.remove(i);
             removed = true;
@@ -132,3 +144,14 @@ void keyReleased() {
     zedPressed = true;
   }
 }
+
+public PImage[] preLoad(String imagePrefix, int count){
+    PImage[] imagez = new PImage[count];
+    
+    for (int i = 0; i < count; i++) {
+      String filename = "animations/" + imagePrefix + i + ".png";
+      imagez[i] = loadImage(filename);
+    }
+    
+    return imagez;
+  }

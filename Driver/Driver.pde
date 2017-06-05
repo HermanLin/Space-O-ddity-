@@ -11,6 +11,7 @@ BST colliders;
 GameObject[] objs;
 Asteroid.Collider col;
 ArrayList<Asteroid> asteroids;
+ArrayList<VFX> vfxs;
 
 void setup() {
   size(1200, 800, P3D);
@@ -24,6 +25,7 @@ void setup() {
   colliders = new BST();
   shots = new LinkedList<Player.Shot>();
   colliders.insert(asteroids.get(0).getCollider());
+  vfxs = new ArrayList<VFX>();
 }
 
 void draw() {
@@ -51,7 +53,7 @@ void draw() {
 
   moveAsteroids();
   renderAsteroids();
-  //col.render();
+  renderVFXS();
 
   moveShots();
 }
@@ -75,6 +77,7 @@ void moveShots() {
           Asteroid ast = asteroids.get(i);
           if (ast.getCollider().intersects(sht.shotLoc)) {
             it.remove();
+            vfxs.add(new VFX("exp", 9, ast.pos));
             colliders.remove(ast.getCollider());
             asteroids.remove(i);
             removed = true;
@@ -90,6 +93,14 @@ void renderAsteroids() {
   for (Asteroid ast : asteroids) {
     ast.spin();
     ast.render();
+  }
+}
+
+void renderVFXS(){
+  for (int i = vfxs.size() - 1; i  >= 0; i--) {
+      if (vfxs.get(i).render()){
+         vfxs.remove(i); 
+      }
   }
 }
 

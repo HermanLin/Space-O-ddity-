@@ -1,4 +1,4 @@
-class Asteroid extends GameObject {
+class Asteroid extends GameObject implements Comparable{
 
   Asteroid(PVector position, PVector velocity) {
     pos = position;
@@ -26,6 +26,10 @@ class Asteroid extends GameObject {
   }
   Collider getCollider() {
     return new Collider();
+  }
+  
+  int compareTo(Object ast){
+   return 0; 
   }
 
   class Collider {

@@ -24,6 +24,8 @@ PImage[] playDeath;
 
 //other variables
 int maxAst; //cap on asteroids spawned
+long startTime; //to increase max cap
+long nextIncrease; //next time to increase cap
 
 void setup() {
   size(1200, 800, P3D);
@@ -37,11 +39,14 @@ void setup() {
   shots = new LinkedList<Player.Shot>();
   vfxs = new ArrayList<VFX>();
   toSpawn = new PriorityQueue<Asteroid>();
-  maxAst = 1;
-  spawnAsteroids();
+  maxAst = 2;
+  nextIncrease = System.currentTimeMillis() + 15000;
 
   explosion = preLoad("exp", 9);
   playDeath = preLoad("play", 11);
+  
+  //spawn first wave
+    spawnAsteroids();
 }
 
 void draw() {
@@ -74,6 +79,11 @@ void draw() {
   moveShots();
 
   spawnAsteroids();
+  
+  if (maxAst < 10 && System.currentTimeMillis() > nextIncrease ){
+    maxAst += 1;
+    nextIncrease += 15000;
+  }
 }
 
 void moveAsteroids() {

@@ -11,11 +11,11 @@ boolean zedPressed = false;
 
 //data structure references
 LinkedList<Player.Shot> shots;
-BST colliders;
 GameObject[] objs;
 Asteroid.Collider col;
 ArrayList<Asteroid> asteroids;
 ArrayList<VFX> vfxs;
+
 PriorityQueue<Asteroid> toSpawn;
 
 //animation references
@@ -34,7 +34,6 @@ void setup() {
   //set references
   player = new Player();
   asteroids = new ArrayList<Asteroid>();
-  colliders = new BST();
   shots = new LinkedList<Player.Shot>();
   vfxs = new ArrayList<VFX>();
   toSpawn = new PriorityQueue<Asteroid>();
@@ -73,13 +72,16 @@ void draw() {
   renderVFXS();
 
   moveShots();
-  
+
   spawnAsteroids();
 }
 
 void moveAsteroids() {
-  for (Asteroid ast : asteroids)
-    ast.move();
+  for (int i = asteroids.size() - 1; i  >= 0; i--) {
+    Asteroid ast = asteroids.get(i);
+    if (ast.move())
+      asteroids.remove(i);
+  }
 }
 
 void moveShots() {
@@ -97,7 +99,6 @@ void moveShots() {
           if (ast.getCollider().intersects(sht.shotLoc)) {
             it.remove();
             vfxs.add(new VFX(explosion, ast.pos));
-            colliders.remove(ast.getCollider());
             asteroids.remove(i);
             removed = true;
           }
@@ -110,23 +111,45 @@ void moveShots() {
 }
 
 void spawnAsteroids() {
-  //random multiplication by -1
-  int[] rando = {1, -1};
+  
   for (int i = 0; i < maxAst - asteroids.size(); i++) {
-    int x = ((int) random(0, width)) + width / 2 * rando[(int) random(0, 2)];
-    int y = ((int) random(0, height)) + height / 2 * rando[(int) random(0, 2)];
-    int vx = x;
-    int vy = y;
+   int x = ((int) random(0, width));
+   if (x >= width / 2)
+   x += width/2;
+   else
+   x -= width/2;
+   int y = ((int) random(0, height));
+   if (y >= height / 2)
+   y += height/2;
+   else
+   y -= height/2;
+  //int x = 630;
+  //int y = 630;
 
-    Asteroid ast = new Asteroid(new PVector(x, y), new PVector(vx, vy));
-    toSpawn.add(ast);
-    
-    System.out.print("Spawned");
-    
-    asteroids.add(toSpawn.poll());
-    colliders.insert(ast.getCollider());
+  int vx = 5;
+  int vy = 5;
+  if (x > width/2) {
+    if (y < height/2) {
+      vx *= -1;
+    } else {
+      vx *= -1;
+      vy *= -1;
+    }
+  } else {
+    if (y > height/2) {
+      vy *= -1;
+    }
   }
+  
+
+  Asteroid ast = new Asteroid(new PVector(x, y), new PVector(vx, vy));
+  //toSpawn.add(ast);
+
+  asteroids.add(ast);
 }
+}
+
+
 
 void renderAsteroids() {
   for (Asteroid ast : asteroids) {

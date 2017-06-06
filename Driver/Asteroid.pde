@@ -1,4 +1,4 @@
-class Asteroid extends GameObject implements Comparable{
+class Asteroid extends GameObject implements Comparable {
 
   Asteroid(PVector position, PVector velocity) {
     pos = position;
@@ -7,8 +7,9 @@ class Asteroid extends GameObject implements Comparable{
     model = loadShape("asteroid2.obj");
     model.scale(8);
   }
-  void move() {
+  boolean move() {
     pos = pos.add(vel);
+    return offScreenDestroy();
   }
   void spin() {
     model.rotateX(PI / 64);
@@ -22,14 +23,19 @@ class Asteroid extends GameObject implements Comparable{
     shape(model);
     popMatrix();
   }
-  void offScreenDestroy() {
+  boolean offScreenDestroy() {
+    if (pos.x < - width / 2 - 20 || pos.x > 3 * width / 2 + 20
+      || pos.y < - height / 2 - 20 || pos.y > 3 * height / 2 + 20)
+      return true;
+    else
+      return false;
   }
   Collider getCollider() {
     return new Collider();
   }
-  
-  int compareTo(Object ast){
-   return 0; 
+
+  int compareTo(Object ast) {
+    return 0;
   }
 
   class Collider {

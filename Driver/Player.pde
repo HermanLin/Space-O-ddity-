@@ -14,16 +14,16 @@ class Player extends GameObject {
     model.scale(7);
 
     //Ubuntu rotation
-    
-    model.rotateX(PI / 2);
-     model.rotateY(PI / 2);
-     
-
-    //Windows rotation
     /*
     model.rotateX(PI / 2);
+     model.rotateY(PI / 2);
+     */
+
+    //Windows rotation
+    
+    model.rotateX(PI / 2);
     model.rotateZ(PI / 2);
-    */
+    
     //model.translate(-30, -30);
   }
 

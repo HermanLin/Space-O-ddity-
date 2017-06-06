@@ -1,11 +1,10 @@
 class Asteroid extends GameObject implements Comparable {
 
-  Asteroid(PVector position, PVector velocity) {
+  Asteroid(PVector position, PVector velocity, PShape modl) {
     pos = position;
     vel = velocity;
     angle = 0;
-    model = loadShape("asteroid2.obj");
-    model.scale(8);
+    model = modl;
   }
   boolean move() {
     pos = pos.add(vel);

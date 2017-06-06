@@ -14,7 +14,7 @@ boolean zedPressed = false;
 LinkedList<Player.Shot> shots;
 GameObject[] objs;
 Asteroid.Collider col;
-ArrayList<Asteroid> asteroids;
+LinkedList<Asteroid> asteroids;
 ArrayList<VFX> vfxs;
 
 PriorityQueue<Asteroid> toSpawn;
@@ -29,6 +29,7 @@ int maxAst; //cap on asteroids spawned
 long nextIncrease; //next time to increase cap
 boolean isDead;
 int currentFrame; //loop background animation
+PShape astModel; // preload asteroid model
 
 void setup() {
   size(1200, 800, P3D);
@@ -40,7 +41,7 @@ void setup() {
   player = new Player();
   scre = createFont("Arial", 16, true);
   
-  asteroids = new ArrayList<Asteroid>();
+  asteroids = new LinkedList<Asteroid>();
   shots = new LinkedList<Player.Shot>();
   vfxs = new ArrayList<VFX>();
   toSpawn = new PriorityQueue<Asteroid>();
@@ -53,6 +54,8 @@ void setup() {
   explosion = preLoad("exp", 9, 133, 250);
   playDeath = preLoad("play", 11, 150, 300);
   background = preLoad("space", 7, width, height);
+  astModel = loadShape("asteroid2.obj");
+    astModel.scale(8);
 
   //spawn first wave
   spawnAsteroids();
@@ -140,12 +143,13 @@ void moveShots() {
         it.remove();
         removed = true;
       } else if (! removed) {
-        for (int i = asteroids.size() - 1; i  >= 0; i--) {
-          Asteroid ast = asteroids.get(i);
+        Iterator as = asteroids.iterator();
+          while (as.hasNext()){
+          Asteroid ast = (Asteroid) as.next();
           if (ast.getCollider().intersects(sht.shotLoc, 0.0)) {
             it.remove();
             vfxs.add(new VFX(explosion, ast.pos));
-            asteroids.remove(i);
+            as.remove();
             removed = true;
             player.score += 10;
           }
@@ -189,7 +193,7 @@ void spawnAsteroids() {
     }
 
 
-    Asteroid ast = new Asteroid(new PVector(x, y), new PVector(vx, vy));
+    Asteroid ast = new Asteroid(new PVector(x, y), new PVector(vx, vy), astModel);
     //toSpawn.add(ast);
 
     asteroids.add(ast);

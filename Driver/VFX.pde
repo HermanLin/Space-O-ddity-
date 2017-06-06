@@ -12,6 +12,7 @@ class VFX {
   }
 
   boolean render() {
+    imageMode(CENTER);
     image(images[frame], pos.x, pos.y);
     if (frame + 1 > imageCount - 1)
        return true; 

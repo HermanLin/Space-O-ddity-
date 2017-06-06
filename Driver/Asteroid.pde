@@ -49,9 +49,10 @@ class Asteroid extends GameObject implements Comparable {
       distance = 100;
     }
 
-    boolean intersects(PVector other) {
+    boolean intersects(PVector other, float radius) {
       if (dist(other.x, other.y, focus1.x, focus1.y)
         + dist(other.x, other.y, focus2.x, focus2.y)
+        + radius
         <= distance)
         return true;
       else

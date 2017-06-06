@@ -40,22 +40,25 @@ void setup() {
   //set references
   player = new Player();
   scre = createFont("Arial", 16, true);
-  
+
+  astModel = loadShape("asteroid2.obj");
+  astModel.scale(8);
+
   asteroids = new LinkedList<Asteroid>();
   shots = new LinkedList<Player.Shot>();
   vfxs = new ArrayList<VFX>();
   toSpawn = new PriorityQueue<Asteroid>();
-  
+  queueAst();
+
   maxAst = 2;
   nextIncrease = System.currentTimeMillis() + 15000;
   currentFrame = 0;
-  
+
 
   explosion = preLoad("exp", 9, 133, 250);
   playDeath = preLoad("play", 11, 150, 300);
   background = preLoad("space", 7, width, height);
-  astModel = loadShape("asteroid2.obj");
-    astModel.scale(8);
+
 
   //spawn first wave
   spawnAsteroids();
@@ -100,7 +103,7 @@ void draw() {
     currentFrame = 0;
   background(background[currentFrame]);
   currentFrame += 1;
-  
+
   player.render();
 
   moveAsteroids();
@@ -112,24 +115,30 @@ void draw() {
 
   renderAsteroids();
   renderVFXS();
-  
+
   if (!isDead)
     displayScore();
   else
     displayDeath();
 
-
   if (maxAst < 10 && System.currentTimeMillis() > nextIncrease ) {
     maxAst += 1;
     nextIncrease += 15000;
+    queueAst();
+  }
+
+  if (asteroids.size() == 0) {
+    spawnAsteroids();
   }
 }
 
 void moveAsteroids() {
   for (int i = asteroids.size() - 1; i  >= 0; i--) {
     Asteroid ast = asteroids.get(i);
-    if (ast.move())
+    if (ast.move()){
       asteroids.remove(i);
+      queueAst();
+    }
   }
 }
 
@@ -144,7 +153,7 @@ void moveShots() {
         removed = true;
       } else if (! removed) {
         Iterator as = asteroids.iterator();
-          while (as.hasNext()){
+        while (as.hasNext()) {
           Asteroid ast = (Asteroid) as.next();
           if (ast.getCollider().intersects(sht.shotLoc, 0.0)) {
             it.remove();
@@ -152,6 +161,7 @@ void moveShots() {
             as.remove();
             removed = true;
             player.score += 10;
+            queueAst();
           }
         }
       }
@@ -163,44 +173,47 @@ void moveShots() {
 
 void spawnAsteroids() {
 
-  for (int i = 0; i < maxAst - asteroids.size(); i++) {
-    int x = ((int) random(0, width));
-    if (x >= width / 2)
-      x += width/2;
-    else
-      x -= width/2;
-    int y = ((int) random(0, height));
-    if (y >= height / 2)
-      y += height/2;
-    else
-      y -= height/2;
-    //int x = 630;
-    //int y = 630;
-
-    int vx = 5;
-    int vy = 5;
-    if (x > width/2) {
-      if (y < height/2) {
-        vx *= -1;
-      } else {
-        vx *= -1;
-        vy *= -1;
-      }
-    } else {
-      if (y > height/2) {
-        vy *= -1;
-      }
-    }
-
-
-    Asteroid ast = new Asteroid(new PVector(x, y), new PVector(vx, vy), astModel);
-    //toSpawn.add(ast);
-
-    asteroids.add(ast);
+  //dequeue
+  for (int i = 0; i < toSpawn.size(); i++) {
+    asteroids.add(toSpawn.poll());
   }
 }
 
+void queueAst() {
 
+  int x = ((int) random(0, width));
+  //set x offscreen
+  if (x >= width / 2)
+    x += width/2;
+  else
+    x -= width/2;
+  //set y offscreen
+  int y = ((int) random(0, height));
+  if (y >= height / 2)
+    y += height/2;
+  else
+    y -= height/2;
+
+  //orient vector towards center
+  int vx = 5;
+  int vy = 5;
+  if (x > width/2) {
+    if (y < height/2) {
+      vx *= -1;
+    } else {
+      vx *= -1;
+      vy *= -1;
+    }
+  } else {
+    if (y > height/2) {
+      vy *= -1;
+    }
+  }
+
+
+  Asteroid ast = new Asteroid(new PVector(x, y), new PVector(vx, vy), astModel);
+  toSpawn.add(ast);
+}
 
 void renderAsteroids() {
   for (Asteroid ast : asteroids) {
@@ -217,17 +230,17 @@ void renderVFXS() {
   }
 }
 
-void displayScore(){
+void displayScore() {
   textFont(scre, 16);
   fill(255);
   text("Score: " + player.score, 10, 30);
 }
 
-void displayDeath(){
+void displayDeath() {
   textFont(scre, 42);
   fill(255);
   text("GAME OVER", width / 2 - 110, height / 2);
-  
+
   textFont(scre, 16);
   fill(255);
   text("Final Score: " + player.score, width / 2 - 30, height / 2 + 40);

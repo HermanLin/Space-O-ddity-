@@ -1,4 +1,4 @@
-class Asteroid extends GameObject implements Comparable {
+class Asteroid extends GameObject {
 
   Asteroid(PVector position, PVector velocity, PShape modl) {
     pos = position;
@@ -33,9 +33,6 @@ class Asteroid extends GameObject implements Comparable {
     return new Collider();
   }
 
-  int compareTo(Object ast) {
-    return 0;
-  }
 
   class Collider {
     PVector focus1;

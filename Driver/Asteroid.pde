@@ -1,9 +1,10 @@
 class Asteroid extends GameObject {
+  float angleX, angleY;
 
   Asteroid(PVector position, PVector velocity, PShape modl) {
     pos = position;
     vel = velocity;
-    angle = 0;
+    angle = angleX = angleY = 0;
     model = modl;
   }
   boolean move() {
@@ -11,14 +12,16 @@ class Asteroid extends GameObject {
     return offScreenDestroy();
   }
   void spin() {
-    model.rotateX(PI / 64);
-    model.rotateY(PI / 64);
+    angleX += random(PI / 64, PI / 32);
+    angleY += random(PI / 64, PI / 32);
   }
 
   void render() {
     pushMatrix();
     lights();
     translate(pos.x, pos.y);
+    rotateX(angleX);
+    rotateY(angleY);
     shape(model);
     popMatrix();
   }

@@ -22,11 +22,13 @@ PriorityQueue<Asteroid> toSpawn;
 //animation references
 PImage[] explosion;
 PImage[] playDeath;
+PImage[] background;
 
 //other variables
 int maxAst; //cap on asteroids spawned
 long nextIncrease; //next time to increase cap
 boolean isDead;
+int currentFrame; //loop background animation
 
 void setup() {
   size(1200, 800, P3D);
@@ -45,10 +47,12 @@ void setup() {
   
   maxAst = 2;
   nextIncrease = System.currentTimeMillis() + 15000;
+  currentFrame = 0;
   
 
   explosion = preLoad("exp", 9, 133, 250);
   playDeath = preLoad("play", 11, 150, 300);
+  background = preLoad("space", 7, width, height);
 
   //spawn first wave
   spawnAsteroids();
@@ -88,7 +92,11 @@ void draw() {
     vfxs.add(new VFX(playDeath, player.pos));
   }
 
-  background(0);
+  //animate background
+  if (currentFrame % 7 == 0)
+    currentFrame = 0;
+  background(background[currentFrame]);
+  currentFrame += 1;
   
   player.render();
 

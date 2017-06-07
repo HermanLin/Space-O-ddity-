@@ -27,9 +27,9 @@ are rendered through the use of PImage and arrays.
 
 
 ###### Controls
-Up Arrow - move player forward
-Left/Right Arrow - rotate the player
-Z - shoots bullets to destroy asteroids
+Up Arrow - move player forward		
+Left/Right Arrow - rotate the player		
+Z - shoots bullets to destroy asteroids		
 ###### Launch Instructions
 1) Open the game in Processing
 2) Click the 'Run' button or press 'ctrl + r'

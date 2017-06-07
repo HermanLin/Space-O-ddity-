@@ -1,23 +1,23 @@
 class Player extends GameObject {
-  //INSTANCE VARIABLES
+  
+  //instance variables
   int shotCooldown;
   int score = 0;
   int lives = 3;
   float yAngle = 0;
-
+  
+  //constructor
   Player() {
     pos = new PVector(width/2, height/2);
     vel = new PVector(0, 0);
     angle = 0;
-    //shapeMode(CENTER);
+
     model = loadShape("ship.obj");
     model.scale(7);
 
     //Ubuntu rotation
-
     model.rotateX(PI / 2);
     model.rotateY(PI / 2);
-
 
     //Windows rotation
     /*
@@ -26,19 +26,13 @@ class Player extends GameObject {
      */
     //model.translate(-30, -30);
   }
-
-  boolean isDead() {
-    return lives == 0;
-  }
-
-  boolean contact() {
-    return true;
-  }
-
+  
+  //returns a shot
   Shot shoot() {
     return new Shot();
   }
-
+  
+  //player movement
   void move() {
     if (pos.x < 10)
       pos.x = width - 10;
@@ -50,27 +44,23 @@ class Player extends GameObject {
       pos.y = 10;
     pos = pos.add(vel);
   }
-
+  
+  //player rotation
   void rotate (float theta) {
     angle += theta;
     //model.rotateZ(theta);
     //model.rotateX(theta);
   }
-
+  
+  //player rendering
   void render() {
     /* From web:
-     (1) Translate space so that the rotation axis passes through the origin.
-     
-     (2) Rotate space about the z axis so that the rotation axis lies in the xz plane.
-     
-     (3) Rotate space about the y axis so that the rotation axis lies along the z axis.
-     
-     (4) Perform the desired rotation by θ about the z axis.
-     
-     (5) Apply the inverse of step (3).
-     
-     (6) Apply the inverse of step (2).
-     
+     (1) Translate space so that the rotation axis passes through the origin.     
+     (2) Rotate space about the z axis so that the rotation axis lies in the xz plane.    
+     (3) Rotate space about the y axis so that the rotation axis lies along the z axis.    
+     (4) Perform the desired rotation by θ about the z axis.   
+     (5) Apply the inverse of step (3).     
+     (6) Apply the inverse of step (2).     
      (7) Apply the inverse of step (1).  */
     pushMatrix();
     lights();
@@ -81,14 +71,17 @@ class Player extends GameObject {
     shape(model);
     popMatrix();
   }
-
+  
+  //shot class
   class Shot {
-    //VFX look;
+  
+    //instance variables
     PVector shotLoc;
     PVector shotVelocity;
     float shotAngle;
     PImage vfx;
-
+  
+    //constructor
     Shot() {
       shotLoc = new PVector(int(pos.x + 20 * cos(angle)), int(pos.y + 40 * sin(angle)), 0);
       shotVelocity = new PVector(30 * cos(angle), 30 * sin(angle), 0);
@@ -96,11 +89,8 @@ class Player extends GameObject {
       vfx = loadImage("shot.png");
       vfx.resize(60, 40);
     }
-
-    boolean contact() {
-      return true;
-    }
-
+    
+    //shot movement
     boolean move() {
       shotLoc = shotLoc.add(shotVelocity);
       if (shotLoc.x < 0 || shotLoc.x > width
@@ -109,7 +99,8 @@ class Player extends GameObject {
       else
         return false;
     }
-
+    
+    //shot rendering
     void render() {
       imageMode(CENTER);
       pushMatrix();

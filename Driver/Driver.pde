@@ -4,7 +4,7 @@ import java.util.*;
 Player player;
 PFont scre;
 
-//input references
+//player input references
 boolean upPressed = false;
 boolean leftPressed = false;
 boolean rightPressed = false;
@@ -16,7 +16,6 @@ GameObject[] objs;
 Asteroid.Collider col;
 LinkedList<Asteroid> asteroids;
 ArrayList<VFX> vfxs;
-
 PriorityQueue<Asteroid> toSpawn;
 
 //animation references
@@ -27,44 +26,48 @@ PImage[] background;
 //other variables
 int maxAst; //cap on asteroids spawned
 long nextIncrease; //next time to increase cap
-boolean isDead;
+boolean isDead; //if player is dead or not
 int currentFrame; //loop background animation
 PShape astModel; // preload asteroid model
 
 void setup() {
+  //setup screen
   size(1200, 800, P3D);
   background(0);
   frameRate(24);
   ortho();
 
-  //set references
+  //set player reference
   player = new Player();
   scre = createFont("Arial", 16, true);
-
+  
+  //set asteroid references
   astModel = loadShape("asteroid2.obj");
   astModel.scale(8);
-
+  
+  //set data structure references
   asteroids = new LinkedList<Asteroid>();
   shots = new LinkedList<Player.Shot>();
   vfxs = new ArrayList<VFX>();
   toSpawn = new PriorityQueue<Asteroid>();
-  queueAst();
-
-  maxAst = 2;
+  
+  queueAst(); //start game with one asteroid enqueued
+  
+  maxAst = 2; //way of increasing difficulty
   nextIncrease = System.currentTimeMillis() + 15000;
   currentFrame = 0;
 
-
+  //load animations for when needed
   explosion = preLoad("exp", 9, 133, 250);
   playDeath = preLoad("play", 11, 150, 300);
   background = preLoad("space", 7, width, height);
-
 
   //spawn first wave
   spawnAsteroids();
 }
 
 void draw() {
+  //player movement
   if (!isDead) {
     if (upPressed) {
       player.vel = new PVector(10 * cos(player.angle), 10 * sin(player.angle), 0);
@@ -80,13 +83,14 @@ void draw() {
     if (rightPressed) {
       player.rotate(PI / 16);
     }
+    //player shooting
     if (zedPressed) {
       shots.addLast(player.shoot());
-      zedPressed = false;
+      zedPressed = false; //ensures player cannot spam shots
     }
   }
 
-  //check if player died
+  //check if player collides with an asteroid
   for (Asteroid ast : asteroids) {
     if (ast.getCollider().intersects(player.pos, 30))
       isDead = true;
@@ -105,10 +109,8 @@ void draw() {
   currentFrame += 1;
 
   player.render();
-
+  
   moveAsteroids();
-
-  //check collisions
   moveShots();
 
   spawnAsteroids();
@@ -116,15 +118,17 @@ void draw() {
   renderAsteroids();
   renderVFXS();
 
+  //if player dies, display death screen, otherwise display score
   if (!isDead)
     displayScore();
   else
     displayDeath();
-
+  
+  //increase "difficulty/level" every 15 seconds
   if (maxAst < 10 && System.currentTimeMillis() > nextIncrease ) {
     maxAst += 1;
-    nextIncrease += 15000;
-    queueAst();
+    nextIncrease += 15000; 
+    queueAst(); //enqueue a new asteroid to increase difficulty
   }
 
   if (asteroids.size() == 0) {
@@ -132,6 +136,7 @@ void draw() {
   }
 }
 
+//asteroid movement for each asteroid within the queue
 void moveAsteroids() {
   for (int i = asteroids.size() - 1; i  >= 0; i--) {
     Asteroid ast = asteroids.get(i);
@@ -142,8 +147,10 @@ void moveAsteroids() {
   }
 }
 
+//shot movement withing the LinkedList
 void moveShots() {
   if (shots.size() > 0) {
+    //iterate through each Shot
     Iterator it = shots.iterator();
     while (it.hasNext()) {
       boolean removed = false;
@@ -155,7 +162,8 @@ void moveShots() {
         Iterator as = asteroids.iterator();
         while (as.hasNext()) {
           Asteroid ast = (Asteroid) as.next();
-          if (ast.getCollider().intersects(sht.shotLoc, 0.0)) {
+          //check if shot has collided with an asteroid
+          if (ast.getCollider().intersects(sht.shotLoc, 0.0)) { 
             it.remove();
             vfxs.add(new VFX(explosion, ast.pos));
             as.remove();
@@ -171,16 +179,17 @@ void moveShots() {
   }
 }
 
+//helper for rendering asteroids within the queue
 void spawnAsteroids() {
-
-  //dequeue
+  //dequeue asteroids
   for (int i = 0; i < toSpawn.size(); i++) {
     asteroids.add(toSpawn.poll());
   }
 }
 
+//enqueue a new asteroid to the queue
 void queueAst() {
-
+  //enqueue asteroids
   int x = ((int) random(0, width));
   //set x offscreen
   if (x >= width / 2)
@@ -210,11 +219,11 @@ void queueAst() {
     }
   }
 
-
   Asteroid ast = new Asteroid(new PVector(x, y), new PVector(vx, vy), astModel);
   toSpawn.add(ast);
 }
 
+//render asteroids within the queue
 void renderAsteroids() {
   for (Asteroid ast : asteroids) {
     ast.spin();
@@ -222,6 +231,7 @@ void renderAsteroids() {
   }
 }
 
+//render images 
 void renderVFXS() {
   for (int i = vfxs.size() - 1; i  >= 0; i--) {
     if (vfxs.get(i).render()) {
@@ -230,12 +240,14 @@ void renderVFXS() {
   }
 }
 
+//display player score
 void displayScore() {
   textFont(scre, 16);
   fill(255);
   text("Score: " + player.score, 10, 30);
 }
 
+//display player death screen
 void displayDeath() {
   textFont(scre, 42);
   fill(255);
@@ -246,6 +258,7 @@ void displayDeath() {
   text("Final Score: " + player.score, width / 2 - 30, height / 2 + 40);
 }
 
+//mothods for recording player inputs
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP) {
@@ -256,11 +269,7 @@ void keyPressed() {
       rightPressed = true;
     }
   } 
-  //else if (key == 'z' || key == 'Z') {
-  //zedPressed = true;
-  //}
 }
-
 void keyReleased() {
   if (key == CODED) {
     if (keyCode == UP) {
@@ -275,6 +284,7 @@ void keyReleased() {
   }
 }
 
+//preloader for images to create animations
 public PImage[] preLoad(String imagePrefix, int count, int w, int h) {
   PImage[] imagez = new PImage[count];
 

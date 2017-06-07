@@ -78,4 +78,14 @@ Victor :: mia
 Herman :: Edited Player shooting
 Ricky :: Added Shot data set
 Victor :: mia
+
+06/05/17
+Herman :: mia
+Ricky :: Worked on animations
+Victor :: mia
+
+06/06/17
+Herman :: Optimized gameplay, commented code
+Ricky :: Optimized gameplay, commented code
+Victor :: mia
 //======^=========================^======
